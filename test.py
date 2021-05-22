@@ -1,7 +1,4 @@
-import sys
+arr = [1,2,3,4,5,6,7,8]
 
-bracket = sys.stdin.readline()
-print("bracket>> ", bracket)
-
-bracket = bracket[:-1]
-print("modified>> ", bracket)
+for i in arr:
+    print(arr.len())
