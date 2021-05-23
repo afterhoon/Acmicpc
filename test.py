@@ -1,4 +1,86 @@
-arr = [1,2,3,4,5,6,7,8]
+## https://chldkato.tistory.com/188
 
-for i in arr:
-    print(arr.len())
+import sys
+
+input = sys.stdin.readline
+dx = [0, 1, 0, -1]
+dy = [-1, 0, 1, 0]
+
+#
+# o o o o o
+# o o o o o
+# o o 1 o o
+# o o o o o
+# o o o o o 
+#
+
+
+n = int(input())
+a = [list(map(int, input().split())) for _ in range(n)]
+x, y = n // 2, n // 2
+
+i, cnt, ans, move, turn = 0, 0, 0, 0, 1
+
+# n = 격자 크기
+# a = nxn 의 모래 양이 들어갈 list
+# x, y = n의 절반 즉 중앙 위치
+
+def storm(x, y, sand):
+    global ans
+    # a[x][y]가 범위 안이면 그 위치에 sand만큼 값 추가
+    if 0 <= x < n and 0 <= y < n:
+        a[x][y] += sand
+    # 아니면 격자밖으로 나간 모래로 취급 (즉, 정답의 값에 추가)
+    else:
+        ans += sand
+
+
+while True:
+    nx = x + dx[i]
+    ny = y + dy[i]
+    if a[nx][ny]:
+        _1 = int(a[nx][ny] * 0.01)
+        _2 = int(a[nx][ny] * 0.02)
+        _7 = int(a[nx][ny] * 0.07)
+        _5 = int(a[nx][ny] * 0.05)
+        _10 = int(a[nx][ny] * 0.1)
+        rem = a[nx][ny] - 2 * (_1 + _2 + _7 + _10) - _5
+
+        _1x_u, _1y_u = x + dx[(i + 3) % 4], y + dy[(i + 3) % 4]
+        _1x_d, _1y_d = x + dx[(i + 1) % 4], y + dy[(i + 1) % 4]
+        _2x_u, _2y_u = nx + 2 * dx[(i + 3) % 4], ny + 2 * dy[(i + 3) % 4]
+        _2x_d, _2y_d = nx + 2 * dx[(i + 1) % 4], ny + 2 * dy[(i + 1) % 4]
+        _7x_u, _7y_u = nx + dx[(i + 3) % 4], ny + dy[(i + 3) % 4]
+        _7x_d, _7y_d = nx + dx[(i + 1) % 4], ny + dy[(i + 1) % 4]
+
+        tx, ty = nx + dx[i], ny + dy[i]
+        _10x_u, _10y_u = tx + dx[(i + 3) % 4], ty + dy[(i + 3) % 4]
+        _10x_d, _10y_d = tx + dx[(i + 1) % 4], ty + dy[(i + 1) % 4]
+        _5x, _5y = tx + dx[i], ty + dy[i]
+
+        storm(tx, ty, rem)
+        storm(_1x_u, _1y_u, _1)
+        storm(_1x_d, _1y_d, _1)
+        storm(_2x_u, _2y_u, _2)
+        storm(_2x_d, _2y_d, _2)
+        storm(_7x_u, _7y_u, _7)
+        storm(_7x_d, _7y_d, _7)
+        storm(_10x_u, _10y_u, _10)
+        storm(_10x_d, _10y_d, _10)
+        storm(_5x, _5y, _5)
+
+    if x == 0 and y == 0:
+        break
+
+    a[nx][ny] = 0
+    x, y = nx, ny
+    cnt += 1
+    if cnt == turn:
+        i = (i + 1) % 4
+        cnt = 0
+        move += 1
+        if move % 2 == 0:
+            turn += 1
+            move = 0
+
+print(ans)
