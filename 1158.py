@@ -17,5 +17,4 @@ while(arr):
     else:
         arr.append(arr[count])
     count += 1
-
 print(">")
