@@ -1,14 +1,11 @@
-numbers = int(input ())
-number_list = list(map(int,input().split()[:numbers]))
+import sys
 
-for number in number_list:
-    if(number == number_list[0]):
-        max_number = number
-        min_number = number
-        continue
-    if(max_number <= number):
-        max_number = number
-    if(min_number >= number):
-        min_number = number
+A = int(sys.stdin.readline())
+arr = list(sys.stdin.readline())
+arr.pop()
+sum = 0
 
-print("%d %d" % (min_number, max_number))
+for i in range(len(arr)):
+    sum += int(arr[i])
+
+print(sum)
