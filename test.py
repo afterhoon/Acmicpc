@@ -1,48 +1,20 @@
-h,m = map(int, input().split())
-if h == 0:
-    if m >= 45:
-        m = m - 45
-        print(h, m)
-    if m < 45:
-        h = 23
-        m = 60 + (m - 45)
-        print(h, m)
-if h > 0:
-    if m >= 45:
-        m = m - 45
-        print(h, m)
-    if m < 45:
-        h = h - 1
-        m = 60 + (m - 45)
-        print(h, m)
+#import time
+#import sys
+#start = time.time()
 
-'''
-#include
-int main(void) {
-    int h,m;
-    scanf("%d %d", &h, &m);
-    if (h == 0) {
-        if (m >= 45) {
-            m = m - 45;
-            printf("%d %d", h, m);
-        }
-        if (m < 45) {
-            h = 23;
-            m = 60 + (m - 45);
-            printf("%d %d", h, m);
-        }
-    }
-    if (h > 0) {
-        if (m >= 45) {
-            m = m - 45;
-            printf("%d %d", h, m);
-        }
-        if (m < 45) {
-            h = h - 1;
-            m = 60 + (m - 45);
-            printf("%d %d", h, m);
-        }
-    }
-    return 0;
-}
-'''
+a = int(input())
+
+b = [list(map(int, sys.stdin.readline().split(" "))) for i in range(a)]
+
+c  = []
+
+for i in b:
+    d = sum(i[1:len(i)])/i[0]
+    e = 0
+    for j in range(1, len(i)):
+        if i[j]>d:
+            e+=1
+    c.append(round(e/i[0], 3)*100)
+
+for i in c:
+    print(str(i)+("0"*(6-len(str(i))))+"%")
