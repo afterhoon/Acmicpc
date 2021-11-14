@@ -13,7 +13,8 @@ n = int(input())
 winner = 0
 while n > 0:
     temp = 4
-    while temp > n:
+    while temp < n:
         temp *= 4
     n -= temp/4
     winner = 1 - winner
+print("SK" if winner == 1 else "CY")
