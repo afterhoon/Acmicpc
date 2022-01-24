@@ -2,13 +2,14 @@
 ## https://www.acmicpc.net/problem/1935
 
 import sys
+
 n = int(input())
 arr = input()
 nums = []
 for i in range(n):
     nums.append(int(input()))
 
-stack=[]
+stack = []
 for c in arr:
     if c in ['+', '-', '*', '/']: # 연산자라면
         # 계산을 위해 num1과 num2를 빼낸다 (pop()은 뒤부터 빼내므로 num2가 먼저 나온다)
